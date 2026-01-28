@@ -4,14 +4,23 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Student;
+use Pest\ArchPresets\Custom;
 
 class StudentController extends Controller
 {
     //
-    public function index(){
+    public function index()
+    {
         $students = Student::all();
-        return view('students.index',['students'=>$students]);
+        return view('students.index', ['students' => $students]);
     }
+
+    public function trash()
+    {
+        $students = Student::onlyTrashed()->get(); // get soft-deleted students
+        return view('students.student-trash', ['students' => $students]);
+    }
+
 
     public function create(){
         return view('students.create');
@@ -44,6 +53,24 @@ class StudentController extends Controller
 
     public function destroy(Student $student){
         $student->delete();
-        return redirect(route('student.index'))->with ('success', 'student Deleted Successfully');
+        return redirect(route('student.index'))->with ('success', 'student Trashed Successfully');
     }
+
+    public function restore($student)
+    {
+        // Find the soft-deleted student by ID
+        $student = Student::withTrashed()->findOrFail($student);
+
+        // Restore the student
+        $student->restore();
+
+        return redirect()->route('student.index')->with('success', 'Student Restored Successfully');
+    }
+
+    public function forceDelete($student){
+        $student = Student::withTrashed()->findOrFail($student);
+        $student->forceDelete();
+        return redirect()->back()->with ('success', 'student Deleted Successfully');
+    }
+
 }

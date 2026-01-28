@@ -3,39 +3,41 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth; 
-use App\Models\Member;
-use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
-    function showLoginForm()
+    public function showLoginForm()
     {
         return view('login');
     }
 
-    function login(Request $request)
-{
-    $request->session()->flash('messgae','Login successfull'); // for flash login message
-    $member = Member::where('email', $request->email)->first();
+    public function login(Request $request)
+    {
+        // Static credentials
+        $email = 'admin@admin.com';
+        $password = '1234';
 
-    if ($member && \Hash::check($request->password, $member->password)) {
-        $request->session()->put('member', $member);
-        return redirect('/product'); // Redirect to your CRUD page
-    } else {
+        if (
+            $request->email === $email &&
+            $request->password === $password
+        ) {
+            // store static user in session
+            $request->session()->put('member', [
+                'email' => $email,
+                'name' => 'Admin'
+            ]);
+
+            return redirect('/product')->with('message', 'Login successful');
+        }
+
         return back()->withErrors([
             'email' => 'Invalid credentials',
-            
         ]);
     }
+
+    public function logout(Request $request)
+    {
+        $request->session()->forget('member');
+        return redirect('/login')->with('message', 'Logged out successfully');
+    }
 }
-
-function logout(Request $request)
-{
-    $request->session()->forget('member');
-    return redirect('/login')->with('message', 'Logged out successfully');
-}
-
-}
-
-

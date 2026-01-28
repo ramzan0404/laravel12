@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>Student Trash</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Students - CRUD App</title>
@@ -116,16 +117,13 @@
 <body>
 
     <div class="container">
-        <h1>All Students</h1>
+        <h1>Trash Data</h1>
 
         @if(session()->has('success'))
             <div class="message">   
                 {{ session('success') }}
             </div>
         @endif
-
-        <a href="{{ route('student.create') }}" class="create-btn">+ Add a new student</a>
-        <a href="{{ url('student/trash') }}" class="create-btn">Go To Trash</a>
         <a href="{{ route('login') }}" class="logout-btn">Logout</a>
 
         <table>
@@ -149,17 +147,19 @@
                     <td>{{ $student->batch }}</td>
 
                     <td>
-                        <a href="{{ route('student.edit', ['student' => $student]) }}" class="edit-link"><i class="fa fa-edit" style="font-size:24px"></i>Edit</a>
+                        <a href="{{ route('student.restore', ['student' => $student]) }}" class="edit-link">
+                            <i class="fa fa-edit" style="font-size:24px"></i> Restore
+                        </a>
                     </td>/
                     
                     <td>
-                        <form method="POST" action="{{ route('student.destroy', ['student' => $student->id]) }}">
+                        <form method="POST" action="{{ route('force.delete', ['student' => $student->id]) }}">
                             @csrf
                             @method('delete')
                             <button type="submit"
                                     class="delete-btn"
                                     onclick="return confirm('Are you sure?')">
-                                Trash
+                                Delete
                             </button>
 
 
@@ -172,7 +172,9 @@
                 @endforeach
             </tbody>
         </table>
+        <div class="back-link">
+            <a href="{{ route('student.index') }}">← Back to all students List</a>
     </div>
-
+    </div>
 </body>
 </html>
