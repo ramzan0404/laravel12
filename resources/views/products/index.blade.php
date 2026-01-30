@@ -108,7 +108,7 @@
         @endif
 
         <a href="{{ route('product.create') }}" class="create-btn">+ Create New Product</a>
-        <a href="{{ route('login') }}" class="logout-btn">Logout</a>
+        <a href="{{ route('admin.login') }}" class="logout-btn">Logout</a>
 
         <table>
             <thead>

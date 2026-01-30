@@ -126,7 +126,7 @@
 
         <a href="{{ route('student.create') }}" class="create-btn">+ Add a new student</a>
         <a href="{{ url('student/trash') }}" class="create-btn">Go To Trash</a>
-        <a href="{{ route('login') }}" class="logout-btn">Logout</a>
+        <a href="{{ route('admin.logout') }}" class="logout-btn">Logout</a>
 
         <table>
             <thead>

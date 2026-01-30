@@ -124,7 +124,7 @@
                 {{ session('success') }}
             </div>
         @endif
-        <a href="{{ route('login') }}" class="logout-btn">Logout</a>
+        <a href="{{ route('admin.login') }}" class="logout-btn">Logout</a>
 
         <table>
             <thead>
@@ -148,7 +148,7 @@
 
                     <td>
                         <a href="{{ route('student.restore', ['student' => $student]) }}" class="edit-link">
-                            <i class="fa fa-edit" style="font-size:24px"></i> Restore
+                            <i class="fa fa-undo" style="font-size:24px"></i> Restore
                         </a>
                     </td>/
                     
