@@ -42,12 +42,13 @@ Route::put('/product/{product}/update', [ProductController::class, 'update'])->n
 Route::delete('/product/{product}/destroy', [ProductController::class, 'destroy'])->name('product.destroy');
 
 
-
 Route::middleware('adminauth')->group(function () {
     Route::get('/dashboard', function () {
         return view('students.index');
     });
 
+    #Dashboard
+    Route::view('dashboard', 'Admin.dashboard')->name('dashbaord.login');
     #studen CDUD
     Route::get('/student', [StudentController::class, 'index'])->name('student.index');
     Route::get('/student/create', [StudentController::class, 'create'])->name('student.create');

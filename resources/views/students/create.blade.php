@@ -106,7 +106,7 @@
         </form>
 
         <div class="back-link">
-            <a href="{{ route('student.index') }}">← Back to all students List</a>
+            <a href="{{ route('dashbaord.login') }}">← Back to Dashboard</a>
         </div>
     </div>
 

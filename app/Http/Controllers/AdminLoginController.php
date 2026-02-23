@@ -24,7 +24,7 @@ class AdminLoginController extends Controller
     if ($admin && Hash::check($request->password, $admin->password)) {
         session()->put('admin', $admin);
 
-        return redirect()->route('student.index')
+        return redirect()->route('dashbaord.login')
             ->with('success', 'Admin Login successfully.');
     }
 

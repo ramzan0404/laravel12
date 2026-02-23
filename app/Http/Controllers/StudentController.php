@@ -33,7 +33,7 @@ class StudentController extends Controller
             'batch' => 'nullable' // optional input
         ]);
         $newStudent = Student::create($data);
-        return redirect()->route('student.index');
+        return redirect()->route('student.index')->with('success', 'New Student added successfully.');
     }
 
     public function edit(Student $student){

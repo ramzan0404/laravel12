@@ -111,6 +111,25 @@
         background: red;
         color: white;
         }
+
+        /* ADDED: Product status styles */
+    .status {
+        padding: 4px 10px;
+        border-radius: 12px;
+        font-size: 13px;
+        font-weight: bold;
+    }
+
+    .status.active {
+        background-color: #d4edda;
+        color: #155724;
+    }
+
+    .status.inactive {
+        background-color: #f5bdc2;
+        color: #721c24;
+    }
+
     </style>
 </head>
 <body>
@@ -125,8 +144,7 @@
         @endif
 
         <a href="{{ route('student.create') }}" class="create-btn">+ Add a new student</a>
-        <a href="{{ url('student/trash') }}" class="create-btn">Go To Trash</a>
-        <a href="{{ route('admin.logout') }}" class="logout-btn">Logout</a>
+        <a href="{{ route('dashbaord.login')}}" class="create-btn">Go To Dashboard</a>
 
         <table>
             <thead>
@@ -136,6 +154,7 @@
                     <th>Email</th>
                     <th>Phone</th>
                     <th>Batch</th>
+                    <th>Status</th>
                     <th colspan="2">Actions</th>
                 </tr>
             </thead>
@@ -147,10 +166,12 @@
                     <td>{{ $student->email }}</td>
                     <td>{{ $student->phone }}</td>
                     <td>{{ $student->batch }}</td>
-
+                    <td>
+                        <span class="status active">Active</span>
+                    </td>
                     <td>
                         <a href="{{ route('student.edit', ['student' => $student]) }}" class="edit-link"><i class="fa fa-edit" style="font-size:24px"></i>Edit</a>
-                    </td>/
+                    </td>
                     
                     <td>
                         <form method="POST" action="{{ route('student.destroy', ['student' => $student->id]) }}">

@@ -94,6 +94,25 @@
             display: flex;
             gap: 10px;
         }
+
+                /* ADDED: Product status styles */
+        .status {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .status.active {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .status.inactive {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
     </style>
 </head>
 <body>
@@ -118,6 +137,7 @@
                     <th>Qty</th>
                     <th>Price</th>
                     <th>Description</th>
+                    <th>Status</th>
                     <th colspan="2">Actions</th>
                 </tr>
             </thead>
@@ -129,6 +149,9 @@
                     <td>{{ $product->qty }}</td>
                     <td>{{ $product->price }}</td>
                     <td>{{ $product->description }}</td>
+                    <td>
+                        <span class="status active">Active</span>
+                    </td>
                     <td>
                         <a href="{{ route('product.edit', ['product' => $product]) }}" class="edit-link"><i class="fa fa-edit" style="font-size:24px"></i>Edit</a>
                     </td>
